@@ -24,6 +24,10 @@ class AccountServices extends React.Component{
     openFixedDepositAccount(balance,accountNumber){
         return axios.put(`${USER_BASE_URL}/fd-account?fixedDepositamount=${balance}&accountNumber=${accountNumber}`);
     }
+
+    getAllUsers(){
+        return axios.get(`${BANK_BASE_URL}/account`);
+    }
 }
 export default new AccountServices()
 

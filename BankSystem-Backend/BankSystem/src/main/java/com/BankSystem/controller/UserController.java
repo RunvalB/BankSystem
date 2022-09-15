@@ -1,11 +1,13 @@
 package com.BankSystem.controller;
 
 import com.BankSystem.entity.AccountInfo;
+import com.BankSystem.entity.Roles;
 import com.BankSystem.entity.User;
 import com.BankSystem.service.IAccountInfoService;
 import com.BankSystem.service.IBankService;
 import com.BankSystem.service.IUserService;
 import com.BankSystem.utils.UserConstants;
+import org.apache.coyote.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,10 @@ public class UserController {
             logger.info("inside UserController in @findUser() method try-block");
             User user = userService.findUser(email,password);
             if(user != null){
+                  if(user.getRole().equals(Roles.BANK_OFFICER))
+                  {
+                     return ResponseEntity.ok(user);
+                  }
                   logger.info("inside UserController in @findUser() method if-block");
                   AccountInfo accountInfo = accountInfoService.findByUser(user);
                   return  ResponseEntity.ok(accountInfo);

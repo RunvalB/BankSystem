@@ -3,12 +3,12 @@ import Navbar from "./Navbar";
 import AccountServices from "../services/AccountServices";
 import { useNavigate } from "react-router-dom";
 
-export default function Register() {
+export default function Register(props) {
+  console.log(props);
   const navigate = useNavigate();
   const [user, setUser] = useState({
     name: "",
     email: "",
-    password: "",
     address: "",
   });
 
@@ -30,7 +30,7 @@ export default function Register() {
           navigate("/register");
         } else if (response.status === 200) {
           alert(response.data);
-          navigate("/login");
+          navigate("/home");
         }
       })
       .catch((error) => console.log(error));
@@ -38,7 +38,7 @@ export default function Register() {
 
   return (
     <>
-      <Navbar></Navbar>
+      <Navbar userData ={props.userData}></Navbar>
       <div className="container mid-container">
         <h5 className="form-title bg-dark">
           <center>Registration Form</center>
@@ -68,19 +68,7 @@ export default function Register() {
             ></input>
           </div>
           <br></br>
-
-          <div className="form-group">
-            <input
-              type="password"
-              className="form-control"
-              name="password"
-              placeholder="Enter Password"
-              onChange={(e) => handleChange(e)}
-              required="required"
-            ></input>
-          </div>
-          <br></br>
-
+          
           <div className="form-group">
             <input
               type="text"
